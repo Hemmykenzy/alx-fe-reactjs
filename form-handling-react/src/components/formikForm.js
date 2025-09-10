@@ -1,5 +1,5 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
+import * as Yup from "node_modules/yup";
 import { useState } from "react";
 
 function FormikForm() {
