@@ -1,39 +1,41 @@
-import { Routes, Route, Link } from "react-router-dom";
-import Home from "./pages/Home";
-import About from "./pages/About";
-import Profile from "./pages/Profile";
-import BlogPost from "./pages/BlogPost";
-import ProtectedRoute from "./components/ProtectedRoute";
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
+import Home from './Pages/Home'
+import About from './Pages/about'
+import Blog from './Pages/Blog'
 
-function App() {
+import Profile from './components/Profile'
+import ProtectedRoute from './components/ProtectedRoute'
+
+export default function App() {
   return (
-    <div>
-      <nav>
-        <Link to="/">Home</Link> |{" "}
-        <Link to="/about">About</Link> |{" "}
-        <Link to="/profile">Profile</Link> |{" "}
-        <Link to="/blog/123">Blog Post</Link>
-      </nav>
+    <Router>
+      <div style={{ padding: 20 }}>
+        <nav style={{ marginBottom: 20 }}>
+          <Link to="/" style={{ marginRight: 10 }}>Home</Link>
+          <Link to="/about" style={{ marginRight: 10 }}>About</Link>
+          <Link to="/blog" style={{ marginRight: 10 }}>Blog</Link>
+          <Link to="/profile">Profile</Link>
+        </nav>
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
 
-        {/* Protected Profile with Nested Routes */}
-        <Route
-          path="/profile/*"
-          element={
-            <ProtectedRoute>
-              <Profile />
-            </ProtectedRoute>
-          }
-        />
+          {/* Blog routes */}
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:id" element={<BlogPost />} />
 
-        {/* Dynamic Blog Post */}
-        <Route path="/blog/:id" element={<BlogPost />} />
-      </Routes>
-    </div>
-  );
+          {/* Protected route for Profile */}
+          <Route
+            path="/profile/*"
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </div>
+    </Router>
+  )
 }
-
-export default App;
